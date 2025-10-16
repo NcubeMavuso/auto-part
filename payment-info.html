@@ -1,0 +1,405 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Payment Information - AutoParts Pro</title>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <style>
+        .payment-info-main {
+            min-height: calc(100vh - 200px);
+            padding: 2rem 0;
+            background: #f8f9fa;
+        }
+
+        .payment-header {
+            text-align: center;
+            margin-bottom: 3rem;
+        }
+
+        .payment-header h1 {
+            color: #1e3c72;
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .payment-content {
+            display: grid;
+            grid-template-columns: 2fr 1fr;
+            gap: 3rem;
+        }
+
+        .payment-methods-section {
+            background: white;
+            border-radius: 10px;
+            padding: 2rem;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+
+        .payment-methods-section h2 {
+            color: #1e3c72;
+            margin-bottom: 2rem;
+            font-size: 1.8rem;
+        }
+
+        .payment-methods-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1.5rem;
+            margin-bottom: 2rem;
+        }
+
+        .payment-method-card {
+            background: #f8f9fa;
+            border: 2px solid #e9ecef;
+            border-radius: 10px;
+            padding: 1.5rem;
+            text-align: center;
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+
+        .payment-method-card:hover {
+            border-color: #1e3c72;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 15px rgba(30, 60, 114, 0.15);
+        }
+
+        .payment-method-card.primary {
+            border-color: #1e3c72;
+            background: #e3f2fd;
+        }
+
+        .payment-method-card.primary::after {
+            content: "PRIMARY";
+            position: absolute;
+            top: 0.5rem;
+            right: 0.5rem;
+            background: #1e3c72;
+            color: white;
+            padding: 0.25rem 0.5rem;
+            border-radius: 3px;
+            font-size: 0.7rem;
+            font-weight: bold;
+        }
+
+        .payment-method-card {
+            position: relative;
+        }
+
+        .payment-method-card i {
+            font-size: 2rem;
+            margin-bottom: 1rem;
+            display: block;
+        }
+
+        .payment-method-card h3 {
+            color: #333;
+            margin-bottom: 0.5rem;
+            font-size: 1.1rem;
+        }
+
+        .payment-method-card p {
+            color: #666;
+            font-size: 0.9rem;
+        }
+
+        .payment-method-card a {
+            color: #1e3c72;
+            text-decoration: none;
+            font-weight: 500;
+        }
+
+        .payment-method-card a:hover {
+            text-decoration: underline;
+        }
+
+        .payment-info-sidebar {
+            background: white;
+            border-radius: 10px;
+            padding: 2rem;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            height: fit-content;
+        }
+
+        .payment-info-sidebar h3 {
+            color: #1e3c72;
+            margin-bottom: 1.5rem;
+            font-size: 1.5rem;
+        }
+
+        .payment-instructions {
+            background: #f8f9fa;
+            padding: 1.5rem;
+            border-radius: 8px;
+            border-left: 4px solid #1e3c72;
+            margin-bottom: 2rem;
+        }
+
+        .payment-instructions h4 {
+            color: #1e3c72;
+            margin-bottom: 1rem;
+        }
+
+        .payment-instructions p {
+            color: #666;
+            line-height: 1.6;
+        }
+
+        .currency-info {
+            background: #e3f2fd;
+            padding: 1rem;
+            border-radius: 8px;
+            text-align: center;
+        }
+
+        .currency-info i {
+            color: #1e3c72;
+            font-size: 1.5rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .currency-info p {
+            color: #1e3c72;
+            font-weight: 600;
+            margin: 0;
+        }
+
+        @media (max-width: 768px) {
+            .payment-content {
+                grid-template-columns: 1fr;
+                gap: 2rem;
+            }
+            
+            .payment-methods-grid {
+                grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header with Social Media Links -->
+    <header class="header">
+        <div class="container">
+            <div class="logo">
+                <a href="index.html">
+                    <h1><i class="fas fa-car"></i> AutoParts Pro</h1>
+                </a>
+            </div>
+            <nav class="main-nav">
+                <ul>
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="index.html#categories">Categories</a></li>
+                    <li><a href="index.html#about-section">About</a></li>
+                    <li><a href="contact.html">Contact</a></li>
+                    <li><a href="admin.html">Admin</a></li>
+                </ul>
+            </nav>
+            <div class="header-actions">
+                <div class="cart-link">
+                    <a href="cart.html" class="cart-button">
+                        <i class="fas fa-shopping-cart"></i>
+                        <span class="cart-counter" id="cartCounter">0</span>
+                    </a>
+                </div>
+                <div class="social-links">
+                    <a href="https://wa.me/1234567890" target="_blank" class="social-link whatsapp">
+                        <i class="fab fa-whatsapp"></i>
+                    </a>
+                    <a href="https://tiktok.com/@yourusername" target="_blank" class="social-link tiktok">
+                        <i class="fab fa-tiktok"></i>
+                    </a>
+                    <a href="https://facebook.com/yourpage" target="_blank" class="social-link facebook">
+                        <i class="fab fa-facebook"></i>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="payment-info-main">
+        <div class="container">
+            <div class="payment-header">
+                <h1><i class="fas fa-credit-card"></i> Payment Information</h1>
+                <p>Choose your preferred payment method for secure transactions</p>
+            </div>
+
+            <div class="payment-content">
+                <div class="payment-methods-section">
+                    <h2>Available Payment Methods</h2>
+                    <div class="payment-methods-grid" id="paymentMethodsGrid">
+                        <!-- Payment methods will be loaded here -->
+                    </div>
+                </div>
+
+                <div class="payment-info-sidebar">
+                    <h3><i class="fas fa-info-circle"></i> Payment Info</h3>
+                    
+                    <div class="payment-instructions" id="paymentInstructions">
+                        <h4><i class="fas fa-clipboard-list"></i> Instructions</h4>
+                        <p>Please select your preferred payment method above. All transactions are processed securely.</p>
+                    </div>
+
+                    <div class="currency-info">
+                        <i class="fas fa-dollar-sign"></i>
+                        <p id="currencyDisplay">Currency: USD</p>
+                    </div>
+
+                    <div style="margin-top: 2rem; text-align: center;">
+                        <a href="index.html" class="btn btn-primary">
+                            <i class="fas fa-arrow-left"></i> Back to Shopping
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h4>AutoParts Pro</h4>
+                    <p>Your trusted source for premium aftermarket car parts. Quality guaranteed, competitive prices.</p>
+                </div>
+                <div class="footer-section">
+                    <h4>Quick Links</h4>
+                    <ul>
+                        <li><a href="index.html#categories">Categories</a></li>
+                        <li><a href="#about">About Us</a></li>
+                        <li><a href="contact.html">Contact</a></li>
+                        <li><a href="#shipping">Shipping Info</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h4>Contact Info</h4>
+                    <p><i class="fas fa-phone"></i> +1 (555) 123-4567</p>
+                    <p><i class="fas fa-envelope"></i> info@autopartspro.com</p>
+                    <p><i class="fas fa-map-marker-alt"></i> 123 Auto Street, Parts City</p>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2024 AutoParts Pro. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            updateSocialMediaLinksOnPage();
+            loadPaymentMethods();
+            updateCartDisplay(); // Initialize cart display
+        });
+
+        function loadPaymentMethods() {
+            const settings = getPaymentSettings();
+            const grid = document.getElementById('paymentMethodsGrid');
+            const instructions = document.getElementById('paymentInstructions');
+            const currencyDisplay = document.getElementById('currencyDisplay');
+
+            // Load currency
+            currencyDisplay.textContent = `Currency: ${settings.currency}`;
+
+            // Load payment instructions
+            if (settings.paymentInstructions) {
+                instructions.querySelector('p').textContent = settings.paymentInstructions;
+            }
+
+            // Load payment methods
+            const availableMethods = settings.paymentMethods.filter(method => method.trim() !== '');
+            
+            if (availableMethods.length === 0) {
+                grid.innerHTML = `
+                    <div style="grid-column: 1 / -1; text-align: center; padding: 3rem; color: #666;">
+                        <i class="fas fa-credit-card" style="font-size: 3rem; margin-bottom: 1rem; opacity: 0.5;"></i>
+                        <h3>No payment methods configured</h3>
+                        <p>Please contact us for payment options.</p>
+                    </div>
+                `;
+                return;
+            }
+
+            grid.innerHTML = availableMethods.map(method => {
+                const isPrimary = method === settings.primaryPaymentMethod;
+                const methodData = getPaymentMethodData(method, settings);
+                
+                return `
+                    <div class="payment-method-card ${isPrimary ? 'primary' : ''}" ${methodData.link ? `onclick="window.open('${methodData.link}', '_blank')"` : ''}>
+                        <i class="${methodData.icon}" style="color: ${methodData.color};"></i>
+                        <h3>${methodData.name}</h3>
+                        <p>${methodData.description}</p>
+                        ${methodData.link ? '<a href="#" onclick="event.stopPropagation(); window.open(\'' + methodData.link + '\', \'_blank\');">Visit Payment Portal</a>' : ''}
+                    </div>
+                `;
+            }).join('');
+        }
+
+        function getPaymentMethodData(method, settings) {
+            const methodData = {
+                stripe: {
+                    name: 'Stripe',
+                    icon: 'fab fa-stripe',
+                    color: '#635BFF',
+                    description: 'Secure online payments',
+                    link: settings.stripeLink
+                },
+                paypal: {
+                    name: 'PayPal',
+                    icon: 'fab fa-paypal',
+                    color: '#003087',
+                    description: 'Pay with PayPal account',
+                    link: settings.paypalLink
+                },
+                square: {
+                    name: 'Square',
+                    icon: 'fas fa-square',
+                    color: '#00A86B',
+                    description: 'Square payment processing',
+                    link: settings.squareLink
+                },
+                cashapp: {
+                    name: 'Cash App',
+                    icon: 'fas fa-dollar-sign',
+                    color: '#00D632',
+                    description: 'Send via Cash App',
+                    link: settings.cashappLink
+                },
+                venmo: {
+                    name: 'Venmo',
+                    icon: 'fas fa-mobile-alt',
+                    color: '#3D95CE',
+                    description: 'Pay with Venmo',
+                    link: settings.venmoLink
+                },
+                banktransfer: {
+                    name: 'Bank Transfer',
+                    icon: 'fas fa-university',
+                    color: '#1E3C72',
+                    description: 'Direct bank transfer',
+                    link: null,
+                    info: settings.bankInfo
+                }
+            };
+
+            const data = methodData[method];
+            if (method === 'banktransfer' && settings.bankInfo) {
+                data.description = settings.bankInfo;
+            }
+            
+            return data || {
+                name: method.charAt(0).toUpperCase() + method.slice(1),
+                icon: 'fas fa-credit-card',
+                color: '#666',
+                description: 'Payment method',
+                link: null
+            };
+        }
+    </script>
+</body>
+</html>
+
+

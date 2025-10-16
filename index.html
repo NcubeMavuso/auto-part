@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AutoParts Pro - Premium Aftermarket Car Parts</title>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+</head>
+<body>
+    <!-- Header with Social Media Links -->
+    <header class="header">
+        <div class="container">
+            <div class="logo">
+                <a href="index.html">
+                    <h1><i class="fas fa-car"></i> AutoParts Pro</h1>
+                </a>
+            </div>
+            <nav class="main-nav">
+                <ul>
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="#categories">Categories</a></li>
+                    <li><a href="#about-section">About</a></li>
+                    <li><a href="contact.html">Contact</a></li>
+                    <li><a href="payment-info.html">Payment</a></li>
+                    <!--<li><a href="admin.html">Admin</a></li>-->
+                </ul>
+            </nav>
+            <div class="header-actions">
+                <div class="cart-link">
+                    <a href="cart.html" class="cart-button">
+                        <i class="fas fa-shopping-cart"></i>
+                        <span class="cart-counter" id="cartCounter">0</span>
+                    </a>
+                </div>
+                <div class="social-links">
+                    <a href="https://wa.me/1234567890" target="_blank" class="social-link whatsapp">
+                        <i class="fab fa-whatsapp"></i>
+                    </a>
+                    <a href="https://tiktok.com/@yourusername" target="_blank" class="social-link tiktok">
+                        <i class="fab fa-tiktok"></i>
+                    </a>
+                    <a href="https://facebook.com/yourpage" target="_blank" class="social-link facebook">
+                        <i class="fab fa-facebook"></i>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="main-content">
+        <div class="container">
+            <div class="content-wrapper">
+                <!-- Left Sidebar - Categories -->
+                <aside class="sidebar" id="categories">
+                    <h3><i class="fas fa-list"></i> Categories</h3>
+                    <ul class="category-list">
+                        <li><a href="#" data-category="engine"><i class="fas fa-cog"></i> Engine Parts</a></li>
+                        <li><a href="#" data-category="brakes"><i class="fas fa-circle-notch"></i> Brake System</a></li>
+                        <li><a href="#" data-category="suspension"><i class="fas fa-car-side"></i> Suspension</a></li>
+                        <li><a href="#" data-category="exhaust"><i class="fas fa-tools"></i> Exhaust System</a></li>
+                        <li><a href="#" data-category="electrical"><i class="fas fa-bolt"></i> Electrical</a></li>
+                        <li><a href="#" data-category="interior"><i class="fas fa-chair"></i> Interior Parts</a></li>
+                        <li><a href="#" data-category="exterior"><i class="fas fa-car"></i> Exterior Parts</a></li>
+                        <li><a href="#" data-category="performance"><i class="fas fa-tachometer-alt"></i> Performance</a></li>
+                    </ul>
+                </aside>
+
+                <!-- Main Product Area -->
+                <section class="products-section">
+                    <div class="section-header">
+                        <h2>Featured Products</h2>
+                        <div class="search-bar">
+                            <input type="text" id="searchInput" placeholder="Search products...">
+                            <button type="button"><i class="fas fa-search"></i></button>
+                        </div>
+                    </div>
+                    
+                    <div class="products-grid" id="productsGrid">
+                        <!-- Products will be loaded here dynamically -->
+                    </div>
+                </section>
+            </div>
+        </div>
+    </main>
+
+    <!-- About Section -->
+    <section id="about-section" class="about-section">
+        <div class="container">
+            <div class="about-content">
+                <div class="about-text">
+                    <h2><i class="fas fa-info-circle"></i> About AutoParts Pro</h2>
+                    <p>AutoParts Pro is your trusted source for premium aftermarket car parts. With over 10 years of experience in the automotive industry, we specialize in providing high-quality parts that enhance your vehicle's performance, safety, and appearance.</p>
+                    
+                    <div class="about-features">
+                        <div class="feature">
+                            <i class="fas fa-shield-alt"></i>
+                            <h4>Quality Guaranteed</h4>
+                            <p>All our parts come with comprehensive warranties and quality guarantees.</p>
+                        </div>
+                        <div class="feature">
+                            <i class="fas fa-shipping-fast"></i>
+                            <h4>Fast Shipping</h4>
+                            <p>Quick delivery to your doorstep with tracking information provided.</p>
+                        </div>
+                        <div class="feature">
+                            <i class="fas fa-tools"></i>
+                            <h4>Expert Support</h4>
+                            <p>Our technical team is here to help you find the right parts for your vehicle.</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="about-image">
+                    <div class="image-placeholder">
+                        <i class="fas fa-car" style="font-size: 4rem; color: #1e3c72;"></i>
+                        <p>Your trusted auto parts supplier</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h4>AutoParts Pro</h4>
+                    <p>Your trusted source for premium aftermarket car parts. Quality guaranteed, competitive prices.</p>
+                </div>
+                <div class="footer-section">
+                    <h4>Quick Links</h4>
+                    <ul>
+                        <li><a href="#categories">Categories</a></li>
+                        <li><a href="#about-section">About Us</a></li>
+                        <li><a href="contact.html">Contact</a></li>
+                        <li><a href="shipping-returns.html">Shipping Info</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h4>Legal</h4>
+                    <ul>
+                        <li><a href="privacy-policy.html">Privacy Policy</a></li>
+                        <li><a href="terms-of-service.html">Terms of Service</a></li>
+                        <li><a href="shipping-returns.html">Shipping & Returns</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h4>Contact Info</h4>
+                    <p><i class="fas fa-phone"></i> +1 (555) 123-4567</p>
+                    <p><i class="fas fa-envelope"></i> info@autopartspro.com</p>
+                    <p><i class="fas fa-map-marker-alt"></i> 123 Auto Street, Parts City</p>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2024 AutoParts Pro. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>

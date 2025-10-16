@@ -1,0 +1,299 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Shipping & Returns - AutoParts Pro</title>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <style>
+        .shipping-main {
+            min-height: calc(100vh - 200px);
+            padding: 2rem 0;
+            background: #f8f9fa;
+        }
+
+        .shipping-header {
+            text-align: center;
+            margin-bottom: 3rem;
+        }
+
+        .shipping-header h1 {
+            color: #1e3c72;
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .shipping-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 3rem;
+        }
+
+        .shipping-section {
+            background: white;
+            border-radius: 10px;
+            padding: 2rem;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+
+        .shipping-section h2 {
+            color: #1e3c72;
+            margin-bottom: 1.5rem;
+            font-size: 1.8rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .shipping-section h3 {
+            color: #333;
+            margin-top: 1.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .shipping-section p {
+            color: #666;
+            line-height: 1.8;
+            margin-bottom: 1rem;
+        }
+
+        .shipping-section ul {
+            color: #666;
+            line-height: 1.8;
+            margin-bottom: 1rem;
+            padding-left: 2rem;
+        }
+
+        .shipping-methods {
+            display: grid;
+            gap: 1rem;
+            margin-top: 1rem;
+        }
+
+        .shipping-method {
+            background: #f8f9fa;
+            padding: 1rem;
+            border-radius: 8px;
+            border-left: 4px solid #1e3c72;
+        }
+
+        .shipping-method h4 {
+            color: #1e3c72;
+            margin-bottom: 0.5rem;
+        }
+
+        .shipping-method p {
+            margin: 0;
+            font-size: 0.9rem;
+        }
+
+        .return-process {
+            background: #e3f2fd;
+            padding: 1.5rem;
+            border-radius: 8px;
+            margin-top: 1rem;
+        }
+
+        .return-process h4 {
+            color: #1e3c72;
+            margin-bottom: 1rem;
+        }
+
+        .return-process ol {
+            color: #666;
+            line-height: 1.8;
+            padding-left: 2rem;
+        }
+
+        @media (max-width: 768px) {
+            .shipping-content {
+                grid-template-columns: 1fr;
+                gap: 2rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header with Social Media Links -->
+    <header class="header">
+        <div class="container">
+            <div class="logo">
+                <a href="index.html">
+                    <h1><i class="fas fa-car"></i> AutoParts Pro</h1>
+                </a>
+            </div>
+            <nav class="main-nav">
+                <ul>
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="index.html#categories">Categories</a></li>
+                    <li><a href="index.html#about-section">About</a></li>
+                    <li><a href="contact.html">Contact</a></li>
+                    <li><a href="payment-info.html">Payment</a></li>
+                    <li><a href="admin.html">Admin</a></li>
+                </ul>
+            </nav>
+            <div class="header-actions">
+                <div class="cart-link">
+                    <a href="cart.html" class="cart-button">
+                        <i class="fas fa-shopping-cart"></i>
+                        <span class="cart-counter" id="cartCounter">0</span>
+                    </a>
+                </div>
+                <div class="social-links">
+                    <a href="https://wa.me/1234567890" target="_blank" class="social-link whatsapp">
+                        <i class="fab fa-whatsapp"></i>
+                    </a>
+                    <a href="https://tiktok.com/@yourusername" target="_blank" class="social-link tiktok">
+                        <i class="fab fa-tiktok"></i>
+                    </a>
+                    <a href="https://facebook.com/yourpage" target="_blank" class="social-link facebook">
+                        <i class="fab fa-facebook"></i>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="shipping-main">
+        <div class="container">
+            <div class="shipping-header">
+                <h1><i class="fas fa-truck"></i> Shipping & Returns</h1>
+                <p>Everything you need to know about shipping and returns</p>
+            </div>
+
+            <div class="shipping-content">
+                <div class="shipping-section">
+                    <h2><i class="fas fa-shipping-fast"></i> Shipping Information</h2>
+                    
+                    <h3>Shipping Methods</h3>
+                    <div class="shipping-methods">
+                        <div class="shipping-method">
+                            <h4>Standard Shipping</h4>
+                            <p>5-7 business days - $9.99</p>
+                        </div>
+                        <div class="shipping-method">
+                            <h4>Express Shipping</h4>
+                            <p>2-3 business days - $19.99</p>
+                        </div>
+                        <div class="shipping-method">
+                            <h4>Free Shipping</h4>
+                            <p>Free on orders over $100</p>
+                        </div>
+                    </div>
+
+                    <h3>Shipping Policy</h3>
+                    <p>We ship to all 50 states and most international destinations. All orders are carefully packaged to ensure your parts arrive in perfect condition.</p>
+
+                    <h3>Processing Time</h3>
+                    <p>Most orders are processed within 1-2 business days. Custom or special order items may take longer.</p>
+
+                    <h3>Tracking Information</h3>
+                    <p>You will receive tracking information via email once your order ships. You can also track your order through our website.</p>
+
+                    <h3>International Shipping</h3>
+                    <p>International shipping is available to select countries. Additional customs fees and taxes may apply and are the responsibility of the customer.</p>
+                </div>
+
+                <div class="shipping-section">
+                    <h2><i class="fas fa-undo"></i> Returns & Exchanges</h2>
+                    
+                    <h3>Return Policy</h3>
+                    <p>We accept returns within 30 days of purchase, provided items are in original condition with all packaging and documentation.</p>
+
+                    <div class="return-process">
+                        <h4>How to Return an Item</h4>
+                        <ol>
+                            <li>Contact us to initiate a return</li>
+                            <li>Receive your return authorization number</li>
+                            <li>Package the item securely</li>
+                            <li>Ship to our return address</li>
+                            <li>Receive your refund within 5-7 business days</li>
+                        </ol>
+                    </div>
+
+                    <h3>Return Conditions</h3>
+                    <ul>
+                        <li>Items must be in original condition</li>
+                        <li>All original packaging must be included</li>
+                        <li>Installation instructions and warranties must be included</li>
+                        <li>Custom or special order items may not be returnable</li>
+                    </ul>
+
+                    <h3>Refund Process</h3>
+                    <p>Refunds are processed within 5-7 business days after we receive your returned item. Refunds will be issued to the original payment method.</p>
+
+                    <h3>Exchanges</h3>
+                    <p>We offer exchanges for defective or incorrect items. Contact us to arrange an exchange before shipping items back.</p>
+
+                    <h3>Restocking Fee</h3>
+                    <p>A 15% restocking fee may apply to returns that are not due to our error or defective products.</p>
+                </div>
+            </div>
+
+            <div style="text-align: center; margin-top: 3rem;">
+                <div class="shipping-section" style="max-width: 600px; margin: 0 auto;">
+                    <h2><i class="fas fa-question-circle"></i> Need Help?</h2>
+                    <p>If you have any questions about shipping or returns, please don't hesitate to contact us. Our customer service team is here to help!</p>
+                    <div style="margin-top: 1.5rem;">
+                        <a href="contact.html" class="btn btn-primary">
+                            <i class="fas fa-phone"></i> Contact Us
+                        </a>
+                        <a href="index.html" class="btn btn-secondary" style="margin-left: 1rem;">
+                            <i class="fas fa-arrow-left"></i> Back to Shopping
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h4>AutoParts Pro</h4>
+                    <p>Your trusted source for premium aftermarket car parts. Quality guaranteed, competitive prices.</p>
+                </div>
+                <div class="footer-section">
+                    <h4>Quick Links</h4>
+                    <ul>
+                        <li><a href="index.html#categories">Categories</a></li>
+                        <li><a href="index.html#about-section">About Us</a></li>
+                        <li><a href="contact.html">Contact</a></li>
+                        <li><a href="shipping-returns.html">Shipping & Returns</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h4>Legal</h4>
+                    <ul>
+                        <li><a href="privacy-policy.html">Privacy Policy</a></li>
+                        <li><a href="terms-of-service.html">Terms of Service</a></li>
+                        <li><a href="shipping-returns.html">Shipping & Returns</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h4>Contact Info</h4>
+                    <p><i class="fas fa-phone"></i> +1 (555) 123-4567</p>
+                    <p><i class="fas fa-envelope"></i> info@autopartspro.com</p>
+                    <p><i class="fas fa-map-marker-alt"></i> 123 Auto Street, Parts City</p>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2024 AutoParts Pro. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            updateCartDisplay();
+            updateSocialMediaLinksOnPage();
+        });
+    </script>
+</body>
+</html>
+

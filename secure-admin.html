@@ -1,0 +1,1793 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Panel - AutoParts Pro</title>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <style>
+        .admin-main {
+            min-height: calc(100vh - 200px);
+            padding: 2rem 0;
+            background: #f8f9fa;
+        }
+        
+        .admin-header {
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+        
+        .admin-header h1 {
+            color: #1e3c72;
+            font-size: 2.5rem;
+            margin-bottom: 0.5rem;
+        }
+        
+        .admin-tabs {
+            display: flex;
+            justify-content: center;
+            margin-bottom: 2rem;
+            background: white;
+            border-radius: 10px;
+            padding: 0.5rem;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            max-width: 800px;
+            margin-left: auto;
+            margin-right: auto;
+            margin-bottom: 2rem;
+            flex-wrap: wrap;
+        }
+        
+        .tab-btn {
+            flex: 1;
+            padding: 1rem 1.5rem;
+            border: none;
+            background: transparent;
+            color: #666;
+            cursor: pointer;
+            border-radius: 8px;
+            transition: all 0.3s ease;
+            font-weight: 500;
+            min-width: 120px;
+        }
+        
+        .tab-btn:hover {
+            background: #f8f9fa;
+            color: #1e3c72;
+        }
+        
+        .tab-btn.active {
+            background: #1e3c72;
+            color: white;
+            box-shadow: 0 2px 8px rgba(30, 60, 114, 0.3);
+        }
+        
+        .tab-btn i {
+            margin-right: 0.5rem;
+        }
+        
+        .tab-content {
+            display: none;
+        }
+        
+        .tab-content.active {
+            display: block;
+        }
+        
+        .admin-section {
+            background: white;
+            border-radius: 10px;
+            padding: 2rem;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            margin-bottom: 2rem;
+        }
+        
+        .admin-section h2 {
+            color: #1e3c72;
+            margin-bottom: 1.5rem;
+            font-size: 1.8rem;
+        }
+        
+        .products-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 1rem;
+        }
+        
+        .products-table th,
+        .products-table td {
+            padding: 1rem;
+            text-align: left;
+            border-bottom: 1px solid #e9ecef;
+        }
+        
+        .products-table th {
+            background: #1e3c72;
+            color: white;
+            font-weight: 600;
+        }
+        
+        .products-table tr:hover {
+            background: #f8f9fa;
+        }
+        
+        .action-btn {
+            padding: 0.5rem 1rem;
+            border: none;
+            border-radius: 3px;
+            cursor: pointer;
+            font-size: 0.9rem;
+            margin-right: 0.5rem;
+            transition: all 0.3s ease;
+        }
+        
+        .action-btn.edit {
+            background: #17a2b8;
+            color: white;
+        }
+        
+        .action-btn.delete {
+            background: #dc3545;
+            color: white;
+        }
+        
+        .action-btn:hover {
+            transform: translateY(-1px);
+        }
+        
+        .form-group {
+            margin-bottom: 1rem;
+        }
+        
+        .form-group label {
+            display: block;
+            font-weight: 600;
+            color: #333;
+            margin-bottom: 0.5rem;
+        }
+        
+        .form-group input,
+        .form-group select,
+        .form-group textarea {
+            width: 100%;
+            padding: 0.75rem;
+            border: 2px solid #e9ecef;
+            border-radius: 5px;
+            font-size: 1rem;
+            transition: border-color 0.3s ease;
+        }
+        
+        .form-group input:focus,
+        .form-group select:focus,
+        .form-group textarea:focus {
+            outline: none;
+            border-color: #1e3c72;
+        }
+        
+        .form-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1rem;
+        }
+        
+        .btn-large {
+            padding: 1rem 2rem;
+            font-size: 1.1rem;
+            font-weight: 600;
+        }
+        
+        .categories-list {
+            list-style: none;
+            padding: 0;
+        }
+        
+        .category-item {
+            background: #f8f9fa;
+            padding: 1rem;
+            border-radius: 8px;
+            margin-bottom: 1rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border: 1px solid #e9ecef;
+        }
+        
+        .category-item .category-info {
+            flex: 1;
+        }
+        
+        .category-item .category-key {
+            font-weight: 600;
+            color: #1e3c72;
+        }
+        
+        .category-item .category-name {
+            color: #666;
+            margin-top: 0.25rem;
+        }
+        
+        .category-actions {
+            display: flex;
+            gap: 0.5rem;
+        }
+        
+        .content-section {
+            margin-bottom: 2rem;
+            padding: 1.5rem;
+            border: 1px solid #e9ecef;
+            border-radius: 8px;
+        }
+        
+        .content-section h3 {
+            color: #1e3c72;
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        
+        .contact-info-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 1rem;
+        }
+        
+        .contact-field {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        
+        .contact-field i {
+            color: #1e3c72;
+            width: 20px;
+        }
+        
+        .payment-methods-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 1rem;
+            margin-top: 0.5rem;
+        }
+        
+        .payment-method-option {
+            cursor: pointer;
+        }
+        
+        .payment-method-option input[type="checkbox"] {
+            display: none;
+        }
+        
+        .payment-method-card {
+            background: #f8f9fa;
+            border: 2px solid #e9ecef;
+            border-radius: 8px;
+            padding: 1rem;
+            text-align: center;
+            transition: all 0.3s ease;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        
+        .payment-method-card i {
+            font-size: 1.5rem;
+        }
+        
+        .payment-method-card span {
+            font-weight: 500;
+            color: #333;
+        }
+        
+        .payment-method-option input[type="checkbox"]:checked + .payment-method-card {
+            border-color: #1e3c72;
+            background: #e3f2fd;
+        }
+        
+        .payment-method-option:hover .payment-method-card {
+            border-color: #1e3c72;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(30, 60, 114, 0.15);
+        }
+        
+        .testing-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-bottom: 2rem;
+        }
+        
+        .testing-card {
+            background: #f8f9fa;
+            border: 2px solid #e9ecef;
+            border-radius: 10px;
+            padding: 1.5rem;
+            transition: all 0.3s ease;
+        }
+        
+        .testing-card:hover {
+            border-color: #1e3c72;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 15px rgba(30, 60, 114, 0.15);
+        }
+        
+        .testing-icon {
+            width: 60px;
+            height: 60px;
+            background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 1rem;
+            color: white;
+            font-size: 1.5rem;
+        }
+        
+        .testing-card h3 {
+            color: #1e3c72;
+            margin-bottom: 0.5rem;
+            text-align: center;
+            font-size: 1.2rem;
+        }
+        
+        .testing-card p {
+            color: #666;
+            text-align: center;
+            margin-bottom: 1.5rem;
+            font-size: 0.9rem;
+        }
+        
+        .testing-links {
+            display: flex;
+            flex-direction: column;
+            gap: 0.75rem;
+        }
+        
+        .test-link {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.75rem 1rem;
+            background: white;
+            border: 1px solid #e9ecef;
+            border-radius: 5px;
+            text-decoration: none;
+            color: #333;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            cursor: pointer;
+            font-size: 0.9rem;
+        }
+        
+        .test-link:hover {
+            background: #1e3c72;
+            color: white;
+            border-color: #1e3c72;
+            transform: translateX(5px);
+        }
+        
+        .test-link.danger:hover {
+            background: #dc3545;
+            border-color: #dc3545;
+        }
+        
+        .test-link i {
+            width: 16px;
+            text-align: center;
+        }
+        
+        .testing-output {
+            background: #f8f9fa;
+            border: 2px solid #e9ecef;
+            border-radius: 10px;
+            padding: 1.5rem;
+            margin-top: 2rem;
+        }
+        
+        .testing-output h3 {
+            color: #1e3c72;
+            margin-bottom: 1rem;
+        }
+        
+        .testing-results {
+            background: white;
+            border: 1px solid #e9ecef;
+            border-radius: 5px;
+            padding: 1rem;
+            font-family: 'Courier New', monospace;
+            font-size: 0.9rem;
+            color: #333;
+            white-space: pre-wrap;
+            max-height: 300px;
+            overflow-y: auto;
+        }
+        
+        @media (max-width: 768px) {
+            .admin-tabs {
+                flex-direction: column;
+                gap: 0.5rem;
+            }
+            
+            .tab-btn {
+                text-align: center;
+                min-width: auto;
+            }
+            
+            .form-row {
+                grid-template-columns: 1fr;
+            }
+            
+            .products-table {
+                font-size: 0.9rem;
+            }
+            
+            .products-table th,
+            .products-table td {
+                padding: 0.5rem;
+            }
+            
+            .contact-info-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <script>
+  /*
+   * Simple password gate for GitHub Pages
+   * Works entirely in the browser.
+   */
+  const password = prompt("Enter admin password:");
+  if (password !== "Mduduzitha01V@magbea25") {
+    alert("Access denied. Returning to home page.");
+    window.location.href = "index.html";
+  }
+else {
+      // ✅ Remember that the user is the admin
+      localStorage.setItem("isAdmin", "true");
+    }
+</script>
+
+    <!-- Header with Social Media Links -->
+    <header class="header">
+        <div class="container">
+            <div class="logo">
+                <a href="index.html">
+                    <h1><i class="fas fa-car"></i> AutoParts Pro</h1>
+                </a>
+            </div>
+            <nav class="main-nav">
+                <ul>
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="index.html#categories">Categories</a></li>
+                    <li><a href="#about">About</a></li>
+                    <li><a href="contact.html">Contact</a></li>
+                    <li><a href="payment-info.html">Payment</a></li>
+                    <!-- <li><a href="secure-admin.html">Admin</a></li> -->
+                </ul>
+            </nav>
+            <div class="header-actions">
+                <div class="cart-link">
+                    <a href="cart.html" class="cart-button">
+                        <i class="fas fa-shopping-cart"></i>
+                        <span class="cart-counter" id="cartCounter">0</span>
+                    </a>
+                </div>
+                <div class="social-links">
+                    <a href="https://wa.me/1234567890" target="_blank" class="social-link whatsapp">
+                        <i class="fab fa-whatsapp"></i>
+                    </a>
+                    <a href="https://tiktok.com/@yourusername" target="_blank" class="social-link tiktok">
+                        <i class="fab fa-tiktok"></i>
+                    </a>
+                    <a href="https://facebook.com/yourpage" target="_blank" class="social-link facebook">
+                        <i class="fab fa-facebook"></i>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Admin Panel -->
+    <main class="admin-main">
+        <div class="container">
+            <div class="admin-header">
+                <h1><i class="fas fa-cog"></i> Admin Panel</h1>
+                <p>Manage your website content and products</p>
+            </div>
+
+            <div class="admin-tabs">
+                <button class="tab-btn active" data-tab="products">
+                    <i class="fas fa-box"></i> Products
+                </button>
+                <button class="tab-btn" data-tab="add-product">
+                    <i class="fas fa-plus"></i> Add Product
+                </button>
+                <button class="tab-btn" data-tab="categories">
+                    <i class="fas fa-list"></i> Categories
+                </button>
+                <button class="tab-btn" data-tab="content">
+                    <i class="fas fa-edit"></i> Content
+                </button>
+                <button class="tab-btn" data-tab="orders">
+                    <i class="fas fa-shopping-cart"></i> Orders
+                </button>
+                <button class="tab-btn" data-tab="testing">
+                    <i class="fas fa-flask"></i> Testing
+                </button>
+            </div>
+
+            <!-- Products Management Tab -->
+            <div class="tab-content active" id="products-tab">
+                <div class="admin-section">
+                    <h2>Product Management</h2>
+                    <table class="products-table" id="productsTable">
+                        <thead>
+                            <tr>
+                                <th>ID</th>
+                                <th>Title</th>
+                                <th>Category</th>
+                                <th>Price</th>
+                                <th>Stock</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody id="productsTableBody">
+                            <!-- Products will be loaded here -->
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <!-- Add Product Tab -->
+            <div class="tab-content" id="add-product-tab">
+                <div class="admin-section">
+                    <h2>Add New Product</h2>
+                    <form id="addProductForm">
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="productTitle">Product Title *</label>
+                                <input type="text" id="productTitle" name="title" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="productCategory">Category *</label>
+                                <select id="productCategory" name="category" required>
+                                    <option value="">Select Category</option>
+                                    <option value="engine">Engine Parts</option>
+                                    <option value="brakes">Brake System</option>
+                                    <option value="suspension">Suspension</option>
+                                    <option value="exhaust">Exhaust System</option>
+                                    <option value="electrical">Electrical</option>
+                                    <option value="interior">Interior Parts</option>
+                                    <option value="exterior">Exterior Parts</option>
+                                    <option value="performance">Performance</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="productPrice">Price *</label>
+                                <input type="number" id="productPrice" name="price" step="0.01" min="0" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="productStock">In Stock</label>
+                                <select id="productStock" name="inStock">
+                                    <option value="true">Yes</option>
+                                    <option value="false">No</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="productDescription">Description *</label>
+                            <textarea id="productDescription" name="description" rows="4" required></textarea>
+                        </div>
+
+                        <button type="submit" class="btn btn-primary btn-large">
+                            <i class="fas fa-save"></i> Add Product
+                        </button>
+                    </form>
+                </div>
+            </div>
+
+            <!-- Categories Management Tab -->
+            <div class="tab-content" id="categories-tab">
+                <div class="admin-section">
+                    <h2>Manage Categories</h2>
+                    <ul class="categories-list" id="categoriesList">
+                        <!-- Categories will be loaded here -->
+                    </ul>
+                    
+                    <div style="margin-top: 2rem; padding-top: 2rem; border-top: 2px solid #e9ecef;">
+                        <h3>Add New Category</h3>
+                        <form id="addCategoryForm">
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label for="categoryKey">Category Key *</label>
+                                    <input type="text" id="categoryKey" name="key" placeholder="e.g., engine, brakes" required>
+                                    <small style="color: #666;">Used internally (lowercase, no spaces)</small>
+                                </div>
+                                <div class="form-group">
+                                    <label for="categoryName">Category Name *</label>
+                                    <input type="text" id="categoryName" name="name" placeholder="e.g., Engine Parts" required>
+                                    <small style="color: #666;">Display name for users</small>
+                                </div>
+                            </div>
+                            <button type="submit" class="btn btn-primary">
+                                <i class="fas fa-plus"></i> Add Category
+                            </button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Content Management Tab -->
+            <div class="tab-content" id="content-tab">
+                <div class="admin-section">
+                    <h2>Website Content Management</h2>
+                    
+                    <!-- About Us Section -->
+                    <div class="content-section">
+                        <h3><i class="fas fa-info-circle"></i> About Us</h3>
+                        <form id="aboutUsForm">
+                            <div class="form-group">
+                                <label for="aboutUsContent">About Us Content</label>
+                                <textarea id="aboutUsContent" name="content" rows="6" placeholder="Tell customers about your business..."></textarea>
+                            </div>
+                            <button type="submit" class="btn btn-primary">
+                                <i class="fas fa-save"></i> Save About Us
+                            </button>
+                        </form>
+                    </div>
+
+                    <!-- Contact Information Section -->
+                    <div class="content-section">
+                        <h3><i class="fas fa-address-book"></i> Contact Information</h3>
+                        <form id="contactInfoForm">
+                            <div class="contact-info-grid">
+                                <div class="form-group">
+                                    <label for="contactPhone">Phone Number</label>
+                                    <div class="contact-field">
+                                        <i class="fas fa-phone"></i>
+                                        <input type="tel" id="contactPhone" name="phone" placeholder="+1 (555) 123-4567">
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label for="contactEmail">Email Address</label>
+                                    <div class="contact-field">
+                                        <i class="fas fa-envelope"></i>
+                                        <input type="email" id="contactEmail" name="email" placeholder="info@autopartspro.com">
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label for="contactAddress">Street Address</label>
+                                    <div class="contact-field">
+                                        <i class="fas fa-map-marker-alt"></i>
+                                        <input type="text" id="contactAddress" name="address" placeholder="123 Auto Street">
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label for="contactCity">City, State, ZIP</label>
+                                    <div class="contact-field">
+                                        <i class="fas fa-city"></i>
+                                        <input type="text" id="contactCity" name="city" placeholder="Parts City, PC 12345">
+                                    </div>
+                                </div>
+                            </div>
+                            <button type="submit" class="btn btn-primary">
+                                <i class="fas fa-save"></i> Save Contact Info
+                            </button>
+                        </form>
+                    </div>
+
+                    <!-- Business Hours Section -->
+                    <div class="content-section">
+                        <h3><i class="fas fa-clock"></i> Business Hours</h3>
+                        <form id="businessHoursForm">
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label for="weekdayHours">Weekday Hours</label>
+                                    <input type="text" id="weekdayHours" name="weekday" placeholder="Monday - Friday: 9:00 AM - 6:00 PM">
+                                </div>
+                                <div class="form-group">
+                                    <label for="weekendHours">Weekend Hours</label>
+                                    <input type="text" id="weekendHours" name="weekend" placeholder="Saturday: 10:00 AM - 4:00 PM">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="sundayHours">Sunday Hours</label>
+                                <input type="text" id="sundayHours" name="sunday" placeholder="Sunday: Closed">
+                            </div>
+                            <button type="submit" class="btn btn-primary">
+                                <i class="fas fa-save"></i> Save Business Hours
+                            </button>
+                        </form>
+                    </div>
+
+                    <!-- Shipping Information Section -->
+                    <div class="content-section">
+                        <h3><i class="fas fa-truck"></i> Shipping Information</h3>
+                        <form id="shippingInfoForm">
+                            <div class="form-group">
+                                <label for="shippingPolicy">Shipping Policy</label>
+                                <textarea id="shippingPolicy" name="policy" rows="4" placeholder="Describe your shipping policies, delivery times, and costs..."></textarea>
+                            </div>
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label for="standardShipping">Standard Shipping</label>
+                                    <input type="text" id="standardShipping" name="standard" placeholder="5-7 business days - $9.99">
+                                </div>
+                                <div class="form-group">
+                                    <label for="expressShipping">Express Shipping</label>
+                                    <input type="text" id="expressShipping" name="express" placeholder="2-3 business days - $19.99">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="freeShippingThreshold">Free Shipping Threshold</label>
+                                <input type="text" id="freeShippingThreshold" name="freeThreshold" placeholder="Free shipping on orders over $100">
+                            </div>
+                            <button type="submit" class="btn btn-primary">
+                                <i class="fas fa-save"></i> Save Shipping Info
+                            </button>
+                        </form>
+                    </div>
+
+                    <!-- Social Media Links Section -->
+                    <div class="content-section">
+                        <h3><i class="fab fa-whatsapp"></i> Social Media Links</h3>
+                        <form id="socialMediaForm">
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label for="whatsappLink">WhatsApp Link</label>
+                                    <div class="contact-field">
+                                        <i class="fab fa-whatsapp" style="color: #25D366;"></i>
+                                        <input type="url" id="whatsappLink" name="whatsapp" placeholder="https://wa.me/1234567890">
+                                    </div>
+                                    <small style="color: #666;">Format: https://wa.me/PHONENUMBER (e.g., https://wa.me/1234567890)</small>
+                                </div>
+                                <div class="form-group">
+                                    <label for="tiktokLink">TikTok Link</label>
+                                    <div class="contact-field">
+                                        <i class="fab fa-tiktok" style="color: #000;"></i>
+                                        <input type="url" id="tiktokLink" name="tiktok" placeholder="https://tiktok.com/@yourusername">
+                                    </div>
+                                    <small style="color: #666;">Format: https://tiktok.com/@USERNAME</small>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="facebookLink">Facebook Link</label>
+                                <div class="contact-field">
+                                    <i class="fab fa-facebook" style="color: #1877F2;"></i>
+                                    <input type="url" id="facebookLink" name="facebook" placeholder="https://facebook.com/yourpage">
+                                </div>
+                                <small style="color: #666;">Format: https://facebook.com/PAGENAME or https://facebook.com/yourpage</small>
+                            </div>
+                            <div class="form-group">
+                                <label for="instagramLink">Instagram Link (Optional)</label>
+                                <div class="contact-field">
+                                    <i class="fab fa-instagram" style="color: #E4405F;"></i>
+                                    <input type="url" id="instagramLink" name="instagram" placeholder="https://instagram.com/yourusername">
+                                </div>
+                                <small style="color: #666;">Format: https://instagram.com/USERNAME</small>
+                            </div>
+                            <div class="form-group">
+                                <label for="youtubeLink">YouTube Link (Optional)</label>
+                                <div class="contact-field">
+                                    <i class="fab fa-youtube" style="color: #FF0000;"></i>
+                                    <input type="url" id="youtubeLink" name="youtube" placeholder="https://youtube.com/@yourchannel">
+                                </div>
+                                <small style="color: #666;">Format: https://youtube.com/@CHANNELNAME or https://youtube.com/channel/CHANNELID</small>
+                            </div>
+                            <button type="submit" class="btn btn-primary">
+                                <i class="fas fa-save"></i> Save Social Media Links
+                            </button>
+                        </form>
+                    </div>
+
+                    <!-- Payment Platform Section -->
+                    <div class="content-section">
+                        <h3><i class="fas fa-credit-card"></i> Payment Platforms & Links</h3>
+                        <form id="paymentPlatformForm">
+                            <div class="form-group">
+                                <label>Primary Payment Methods</label>
+                                <div class="payment-methods-grid">
+                                    <label class="payment-method-option">
+                                        <input type="checkbox" name="paymentMethods" value="stripe" id="stripeCheck">
+                                        <div class="payment-method-card">
+                                            <i class="fab fa-stripe" style="color: #635BFF;"></i>
+                                            <span>Stripe</span>
+                                        </div>
+                                    </label>
+                                    <label class="payment-method-option">
+                                        <input type="checkbox" name="paymentMethods" value="paypal" id="paypalCheck">
+                                        <div class="payment-method-card">
+                                            <i class="fab fa-paypal" style="color: #003087;"></i>
+                                            <span>PayPal</span>
+                                        </div>
+                                    </label>
+                                    <label class="payment-method-option">
+                                        <input type="checkbox" name="paymentMethods" value="square" id="squareCheck">
+                                        <div class="payment-method-card">
+                                            <i class="fas fa-square" style="color: #00A86B;"></i>
+                                            <span>Square</span>
+                                        </div>
+                                    </label>
+                                    <label class="payment-method-option">
+                                        <input type="checkbox" name="paymentMethods" value="cashapp" id="cashappCheck">
+                                        <div class="payment-method-card">
+                                            <i class="fas fa-dollar-sign" style="color: #00D632;"></i>
+                                            <span>Cash App</span>
+                                        </div>
+                                    </label>
+                                    <label class="payment-method-option">
+                                        <input type="checkbox" name="paymentMethods" value="venmo" id="venmoCheck">
+                                        <div class="payment-method-card">
+                                            <i class="fas fa-mobile-alt" style="color: #3D95CE;"></i>
+                                            <span>Venmo</span>
+                                        </div>
+                                    </label>
+                                    <label class="payment-method-option">
+                                        <input type="checkbox" name="paymentMethods" value="banktransfer" id="bankCheck">
+                                        <div class="payment-method-card">
+                                            <i class="fas fa-university" style="color: #1E3C72;"></i>
+                                            <span>Bank Transfer</span>
+                                        </div>
+                                    </label>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="primaryPaymentMethod">Primary Payment Method</label>
+                                <select id="primaryPaymentMethod" name="primaryPayment">
+                                    <option value="">Select Primary Method</option>
+                                    <option value="stripe">Stripe</option>
+                                    <option value="paypal">PayPal</option>
+                                    <option value="square">Square</option>
+                                    <option value="cashapp">Cash App</option>
+                                    <option value="venmo">Venmo</option>
+                                    <option value="banktransfer">Bank Transfer</option>
+                                </select>
+                            </div>
+
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label for="stripeLink">Stripe Dashboard Link</label>
+                                    <input type="url" id="stripeLink" name="stripeLink" placeholder="https://dashboard.stripe.com">
+                                </div>
+                                <div class="form-group">
+                                    <label for="paypalLink">PayPal Business Link</label>
+                                    <input type="url" id="paypalLink" name="paypalLink" placeholder="https://www.paypal.com/businessprofile">
+                                </div>
+                            </div>
+
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label for="squareLink">Square Dashboard Link</label>
+                                    <input type="url" id="squareLink" name="squareLink" placeholder="https://squareup.com/dashboard">
+                                </div>
+                                <div class="form-group">
+                                    <label for="cashappLink">Cash App Link</label>
+                                    <input type="url" id="cashappLink" name="cashappLink" placeholder="https://cash.app/$yourusername">
+                                </div>
+                            </div>
+
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label for="venmoLink">Venmo Link</label>
+                                    <input type="url" id="venmoLink" name="venmoLink" placeholder="https://venmo.com/yourusername">
+                                </div>
+                                <div class="form-group">
+                                    <label for="bankInfo">Bank Transfer Info</label>
+                                    <input type="text" id="bankInfo" name="bankInfo" placeholder="Account: ****1234, Routing: 123456789">
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="paymentInstructions">Payment Instructions</label>
+                                <textarea id="paymentInstructions" name="instructions" rows="4" placeholder="Add any special payment instructions for customers..."></textarea>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="currency">Default Currency</label>
+                                <select id="currency" name="currency">
+                                    <option value="USD">US Dollar (USD)</option>
+                                    <option value="EUR">Euro (EUR)</option>
+                                    <option value="GBP">British Pound (GBP)</option>
+                                    <option value="CAD">Canadian Dollar (CAD)</option>
+                                    <option value="AUD">Australian Dollar (AUD)</option>
+                                    <option value="JPY">Japanese Yen (JPY)</option>
+                                </select>
+                            </div>
+
+                            <button type="submit" class="btn btn-primary">
+                                <i class="fas fa-save"></i> Save Payment Settings
+                            </button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Orders Tab -->
+            <div class="tab-content" id="orders-tab">
+                <div class="admin-section">
+                    <h2>Order Management</h2>
+                    <div style="text-align: center; padding: 3rem; color: #666;">
+                        <i class="fas fa-shopping-cart" style="font-size: 3rem; margin-bottom: 1rem; opacity: 0.5;"></i>
+                        <h3>No orders yet</h3>
+                        <p>Orders will appear here when customers make purchases.</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Testing Tab -->
+            <div class="tab-content" id="testing-tab">
+                <div class="admin-section">
+                    <h2><i class="fas fa-flask"></i> Testing & Development Tools</h2>
+                    <p style="color: #666; margin-bottom: 2rem;">Use these tools to test different features and configurations of your website.</p>
+                    
+                    <div class="testing-grid">
+                        <div class="testing-card">
+                            <div class="testing-icon">
+                                <i class="fas fa-globe"></i>
+                            </div>
+                            <h3>Website Pages</h3>
+                            <p>Test all website pages and functionality</p>
+                            <div class="testing-links">
+                                <a href="index.html" target="_blank" class="test-link">
+                                    <i class="fas fa-home"></i> Home Page
+                                </a>
+                                <a href="contact.html" target="_blank" class="test-link">
+                                    <i class="fas fa-phone"></i> Contact Page
+                                </a>
+                                <a href="payment-info.html" target="_blank" class="test-link">
+                                    <i class="fas fa-credit-card"></i> Payment Page
+                                </a>
+                            </div>
+                        </div>
+
+                        <div class="testing-card">
+                            <div class="testing-icon">
+                                <i class="fas fa-database"></i>
+                            </div>
+                            <h3>Data Management</h3>
+                            <p>View and manage stored data</p>
+                            <div class="testing-links">
+                                <button onclick="viewStoredData()" class="test-link">
+                                    <i class="fas fa-eye"></i> View All Data
+                                </button>
+                                <button onclick="exportData()" class="test-link">
+                                    <i class="fas fa-download"></i> Export Data
+                                </button>
+                                <button onclick="clearAllData()" class="test-link danger">
+                                    <i class="fas fa-trash"></i> Clear All Data
+                                </button>
+                            </div>
+                        </div>
+
+                        <div class="testing-card">
+                            <div class="testing-icon">
+                                <i class="fas fa-cogs"></i>
+                            </div>
+                            <h3>System Tests</h3>
+                            <p>Test website functionality and features</p>
+                            <div class="testing-links">
+                                <button onclick="testProducts()" class="test-link">
+                                    <i class="fas fa-box"></i> Test Products
+                                </button>
+                                <button onclick="testCategories()" class="test-link">
+                                    <i class="fas fa-list"></i> Test Categories
+                                </button>
+                                <button onclick="testPaymentSettings()" class="test-link">
+                                    <i class="fas fa-credit-card"></i> Test Payments
+                                </button>
+                            </div>
+                        </div>
+
+                        <div class="testing-card">
+                            <div class="testing-icon">
+                                <i class="fas fa-mobile-alt"></i>
+                            </div>
+                            <h3>Responsive Testing</h3>
+                            <p>Test website on different screen sizes</p>
+                            <div class="testing-links">
+                                <button onclick="simulateMobile()" class="test-link">
+                                    <i class="fas fa-mobile-alt"></i> Mobile View
+                                </button>
+                                <button onclick="simulateTablet()" class="test-link">
+                                    <i class="fas fa-tablet-alt"></i> Tablet View
+                                </button>
+                                <button onclick="resetView()" class="test-link">
+                                    <i class="fas fa-desktop"></i> Desktop View
+                                </button>
+                            </div>
+                        </div>
+
+                        <div class="testing-card">
+                            <div class="testing-icon">
+                                <i class="fas fa-palette"></i>
+                            </div>
+                            <h3>Theme Testing</h3>
+                            <p>Test different color schemes and styles</p>
+                            <div class="testing-links">
+                                <button onclick="testTheme('blue')" class="test-link">
+                                    <i class="fas fa-circle" style="color: #1e3c72;"></i> Blue Theme
+                                </button>
+                                <button onclick="testTheme('green')" class="test-link">
+                                    <i class="fas fa-circle" style="color: #28a745;"></i> Green Theme
+                                </button>
+                                <button onclick="testTheme('red')" class="test-link">
+                                    <i class="fas fa-circle" style="color: #dc3545;"></i> Red Theme
+                                </button>
+                                <button onclick="resetTheme()" class="test-link">
+                                    <i class="fas fa-undo"></i> Reset Theme
+                                </button>
+                            </div>
+                        </div>
+
+                        <div class="testing-card">
+                            <div class="testing-icon">
+                                <i class="fas fa-bug"></i>
+                            </div>
+                            <h3>Debug Tools</h3>
+                            <p>Debug and troubleshoot issues</p>
+                            <div class="testing-links">
+                                <button onclick="showConsoleInfo()" class="test-link">
+                                    <i class="fas fa-terminal"></i> Console Info
+                                </button>
+                                <button onclick="testLocalStorage()" class="test-link">
+                                    <i class="fas fa-hdd"></i> Storage Test
+                                </button>
+                                <button onclick="generateTestData()" class="test-link">
+                                    <i class="fas fa-plus"></i> Generate Test Data
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="testing-output" id="testingOutput" style="display: none;">
+                        <h3>Test Output</h3>
+                        <div id="testingResults" class="testing-results"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h4>AutoParts Pro</h4>
+                    <p>Your trusted source for premium aftermarket car parts. Quality guaranteed, competitive prices.</p>
+                </div>
+                <div class="footer-section">
+                    <h4>Quick Links</h4>
+                    <ul>
+                        <li><a href="index.html#categories">Categories</a></li>
+                        <li><a href="#about">About Us</a></li>
+                        <li><a href="contact.html">Contact</a></li>
+                        <li><a href="#shipping">Shipping Info</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h4>Contact Info</h4>
+                    <p><i class="fas fa-phone"></i> +1 (555) 123-4567</p>
+                    <p><i class="fas fa-envelope"></i> info@autopartspro.com</p>
+                    <p><i class="fas fa-map-marker-alt"></i> 123 Auto Street, Parts City</p>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2024 AutoParts Pro. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+    <script>
+        // Enhanced Admin functionality
+        document.addEventListener('DOMContentLoaded', function() {
+            loadProductsTable();
+            loadCategories();
+            loadContentData();
+            setupAdminEventListeners();
+            updateSocialMediaLinksOnPage();
+            updateCartDisplay(); // Initialize cart display
+        });
+
+        // Tab switching functionality
+        function setupTabSwitching() {
+            const tabButtons = document.querySelectorAll('.tab-btn');
+            tabButtons.forEach(button => {
+                button.addEventListener('click', function() {
+                    const tabName = this.getAttribute('data-tab');
+                    showTab(tabName);
+                });
+            });
+        }
+
+        function showTab(tabName) {
+            // Hide all tabs
+            document.querySelectorAll('.tab-content').forEach(tab => {
+                tab.classList.remove('active');
+            });
+            
+            // Remove active class from all buttons
+            document.querySelectorAll('.tab-btn').forEach(btn => {
+                btn.classList.remove('active');
+            });
+            
+            // Show selected tab
+            document.getElementById(tabName + '-tab').classList.add('active');
+            
+            // Add active class to clicked button
+            document.querySelector(`[data-tab="${tabName}"]`).classList.add('active');
+        }
+
+        function loadProductsTable() {
+            const tbody = document.getElementById('productsTableBody');
+            
+            if (!tbody || !products || products.length === 0) {
+                if (tbody) {
+                    tbody.innerHTML = `
+                        <tr>
+                            <td colspan="6" style="text-align: center; padding: 2rem; color: #666;">
+                                No products found. Add your first product to get started.
+                            </td>
+                        </tr>
+                    `;
+                }
+                return;
+            }
+            
+            tbody.innerHTML = products.map(product => `
+                <tr>
+                    <td>${product.id}</td>
+                    <td><strong>${product.title}</strong></td>
+                    <td>${categories[product.category] || product.category}</td>
+                    <td><strong>$${product.price}</strong></td>
+                    <td>
+                        <span style="color: ${product.inStock ? '#28a745' : '#dc3545'}; font-weight: 600;">
+                            ${product.inStock ? 'In Stock' : 'Out of Stock'}
+                        </span>
+                    </td>
+                    <td>
+                        <button class="action-btn edit" onclick="editProduct(${product.id})">
+                            <i class="fas fa-edit"></i> Edit
+                        </button>
+                        <button class="action-btn delete" onclick="deleteProduct(${product.id})">
+                            <i class="fas fa-trash"></i> Delete
+                        </button>
+                    </td>
+                </tr>
+            `).join('');
+        }
+
+        function loadCategories() {
+            const categoriesList = document.getElementById('categoriesList');
+            
+            if (!categoriesList) return;
+            
+            const categoriesArray = Object.entries(categories).filter(([key]) => key !== 'all');
+            
+            categoriesList.innerHTML = categoriesArray.map(([key, name]) => `
+                <li class="category-item">
+                    <div class="category-info">
+                        <div class="category-key">${key}</div>
+                        <div class="category-name">${name}</div>
+                    </div>
+                    <div class="category-actions">
+                        <button class="action-btn edit" onclick="editCategory('${key}', '${name}')">
+                            <i class="fas fa-edit"></i> Edit
+                        </button>
+                        <button class="action-btn delete" onclick="deleteCategory('${key}')" 
+                                ${key === 'engine' || key === 'brakes' ? 'disabled title="Cannot delete default categories"' : ''}>
+                            <i class="fas fa-trash"></i> Delete
+                        </button>
+                    </div>
+                </li>
+            `).join('');
+        }
+
+        function loadContentData() {
+            // Load saved content data from localStorage or set defaults
+            const contentData = JSON.parse(localStorage.getItem('websiteContent') || '{}');
+            
+            // About Us
+            document.getElementById('aboutUsContent').value = contentData.aboutUs || 'Your trusted source for premium aftermarket car parts. Quality guaranteed, competitive prices.';
+            
+            // Contact Info
+            document.getElementById('contactPhone').value = contentData.contactPhone || '+1 (555) 123-4567';
+            document.getElementById('contactEmail').value = contentData.contactEmail || 'info@autopartspro.com';
+            document.getElementById('contactAddress').value = contentData.contactAddress || '123 Auto Street';
+            document.getElementById('contactCity').value = contentData.contactCity || 'Parts City, PC 12345';
+            
+            // Business Hours
+            document.getElementById('weekdayHours').value = contentData.weekdayHours || 'Monday - Friday: 9:00 AM - 6:00 PM';
+            document.getElementById('weekendHours').value = contentData.weekendHours || 'Saturday: 10:00 AM - 4:00 PM';
+            document.getElementById('sundayHours').value = contentData.sundayHours || 'Sunday: Closed';
+            
+            // Shipping Info
+            document.getElementById('shippingPolicy').value = contentData.shippingPolicy || 'We offer fast and reliable shipping to all locations. All orders are carefully packaged to ensure your parts arrive in perfect condition.';
+            document.getElementById('standardShipping').value = contentData.standardShipping || '5-7 business days - $9.99';
+            document.getElementById('expressShipping').value = contentData.expressShipping || '2-3 business days - $19.99';
+            document.getElementById('freeShippingThreshold').value = contentData.freeShippingThreshold || 'Free shipping on orders over $100';
+            
+            // Social Media Links
+            document.getElementById('whatsappLink').value = contentData.whatsappLink || 'https://wa.me/1234567890';
+            document.getElementById('tiktokLink').value = contentData.tiktokLink || 'https://tiktok.com/@yourusername';
+            document.getElementById('facebookLink').value = contentData.facebookLink || 'https://facebook.com/yourpage';
+            document.getElementById('instagramLink').value = contentData.instagramLink || '';
+            document.getElementById('youtubeLink').value = contentData.youtubeLink || '';
+            
+            // Payment Platform Settings
+            const paymentMethods = contentData.paymentMethods ? contentData.paymentMethods.split(',') : [];
+            paymentMethods.forEach(method => {
+                const checkbox = document.getElementById(method + 'Check');
+                if (checkbox) checkbox.checked = true;
+            });
+            
+            document.getElementById('primaryPaymentMethod').value = contentData.primaryPaymentMethod || '';
+            document.getElementById('stripeLink').value = contentData.stripeLink || '';
+            document.getElementById('paypalLink').value = contentData.paypalLink || '';
+            document.getElementById('squareLink').value = contentData.squareLink || '';
+            document.getElementById('cashappLink').value = contentData.cashappLink || '';
+            document.getElementById('venmoLink').value = contentData.venmoLink || '';
+            document.getElementById('bankInfo').value = contentData.bankInfo || '';
+            document.getElementById('paymentInstructions').value = contentData.paymentInstructions || '';
+            document.getElementById('currency').value = contentData.currency || 'USD';
+        }
+
+        function setupAdminEventListeners() {
+            setupTabSwitching();
+            
+            // Product form
+            const addProductForm = document.getElementById('addProductForm');
+            if (addProductForm) {
+                addProductForm.addEventListener('submit', handleAddProduct);
+            }
+
+            // Category form
+            const addCategoryForm = document.getElementById('addCategoryForm');
+            if (addCategoryForm) {
+                addCategoryForm.addEventListener('submit', handleAddCategory);
+            }
+
+            // Content forms
+            const aboutUsForm = document.getElementById('aboutUsForm');
+            if (aboutUsForm) {
+                aboutUsForm.addEventListener('submit', handleSaveAboutUs);
+            }
+
+            const contactInfoForm = document.getElementById('contactInfoForm');
+            if (contactInfoForm) {
+                contactInfoForm.addEventListener('submit', handleSaveContactInfo);
+            }
+
+            const businessHoursForm = document.getElementById('businessHoursForm');
+            if (businessHoursForm) {
+                businessHoursForm.addEventListener('submit', handleSaveBusinessHours);
+            }
+
+            const shippingInfoForm = document.getElementById('shippingInfoForm');
+            if (shippingInfoForm) {
+                shippingInfoForm.addEventListener('submit', handleSaveShippingInfo);
+            }
+
+            const socialMediaForm = document.getElementById('socialMediaForm');
+            if (socialMediaForm) {
+                socialMediaForm.addEventListener('submit', handleSaveSocialMedia);
+            }
+
+            const paymentPlatformForm = document.getElementById('paymentPlatformForm');
+            if (paymentPlatformForm) {
+                paymentPlatformForm.addEventListener('submit', handleSavePaymentPlatform);
+            }
+        }
+
+        function handleAddProduct(e) {
+            e.preventDefault();
+            
+            const formData = new FormData(e.target);
+            const productData = {
+                title: formData.get('title'),
+                description: formData.get('description'),
+                price: parseFloat(formData.get('price')),
+                category: formData.get('category'),
+                inStock: formData.get('inStock') === 'true',
+                image: 'default.jpg',
+                options: []
+            };
+            
+            const newProduct = addProduct(productData);
+            loadProductsTable();
+            e.target.reset();
+            alert('Product added successfully!');
+        }
+
+        function handleAddCategory(e) {
+            e.preventDefault();
+            
+            const formData = new FormData(e.target);
+            const categoryKey = formData.get('key').toLowerCase().replace(/\s+/g, '');
+            const categoryName = formData.get('name');
+            
+            if (categories[categoryKey]) {
+                alert('Category key already exists!');
+                return;
+            }
+            
+            categories[categoryKey] = categoryName;
+            
+            // Update category select in add product form
+            updateCategorySelect();
+            loadCategories();
+            e.target.reset();
+            alert('Category added successfully!');
+        }
+
+        function updateCategorySelect() {
+            const categorySelect = document.getElementById('productCategory');
+            if (!categorySelect) return;
+            
+            // Clear existing options except the first one
+            categorySelect.innerHTML = '<option value="">Select Category</option>';
+            
+            // Add all categories
+            Object.entries(categories).forEach(([key, name]) => {
+                if (key !== 'all') {
+                    const option = document.createElement('option');
+                    option.value = key;
+                    option.textContent = name;
+                    categorySelect.appendChild(option);
+                }
+            });
+        }
+
+        function editCategory(key, name) {
+            const newName = prompt('Edit category name:', name);
+            if (newName && newName.trim()) {
+                categories[key] = newName.trim();
+                loadCategories();
+                updateCategorySelect();
+                alert('Category updated successfully!');
+            }
+        }
+
+        function deleteCategory(key) {
+            if (confirm(`Are you sure you want to delete the category "${categories[key]}"?`)) {
+                delete categories[key];
+                loadCategories();
+                updateCategorySelect();
+                alert('Category deleted successfully!');
+            }
+        }
+
+        function handleSaveAboutUs(e) {
+            e.preventDefault();
+            const content = document.getElementById('aboutUsContent').value;
+            saveContentData('aboutUs', content);
+            alert('About Us content saved successfully!');
+        }
+
+        function handleSaveContactInfo(e) {
+            e.preventDefault();
+            const formData = new FormData(e.target);
+            const contactData = {
+                contactPhone: formData.get('phone'),
+                contactEmail: formData.get('email'),
+                contactAddress: formData.get('address'),
+                contactCity: formData.get('city')
+            };
+            
+            Object.entries(contactData).forEach(([key, value]) => {
+                saveContentData(key, value);
+            });
+            
+            alert('Contact information saved successfully!');
+        }
+
+        function handleSaveBusinessHours(e) {
+            e.preventDefault();
+            const formData = new FormData(e.target);
+            const hoursData = {
+                weekdayHours: formData.get('weekday'),
+                weekendHours: formData.get('weekend'),
+                sundayHours: formData.get('sunday')
+            };
+            
+            Object.entries(hoursData).forEach(([key, value]) => {
+                saveContentData(key, value);
+            });
+            
+            alert('Business hours saved successfully!');
+        }
+
+        function handleSaveShippingInfo(e) {
+            e.preventDefault();
+            const formData = new FormData(e.target);
+            const shippingData = {
+                shippingPolicy: formData.get('policy'),
+                standardShipping: formData.get('standard'),
+                expressShipping: formData.get('express'),
+                freeShippingThreshold: formData.get('freeThreshold')
+            };
+            
+            Object.entries(shippingData).forEach(([key, value]) => {
+                saveContentData(key, value);
+            });
+            
+            alert('Shipping information saved successfully!');
+        }
+
+        function handleSaveSocialMedia(e) {
+            e.preventDefault();
+            const formData = new FormData(e.target);
+            const socialMediaData = {
+                whatsappLink: formData.get('whatsapp'),
+                tiktokLink: formData.get('tiktok'),
+                facebookLink: formData.get('facebook'),
+                instagramLink: formData.get('instagram'),
+                youtubeLink: formData.get('youtube')
+            };
+            
+            Object.entries(socialMediaData).forEach(([key, value]) => {
+                saveContentData(key, value);
+            });
+            
+            alert('Social media links saved successfully!');
+            
+            // Update the header links immediately
+            updateSocialMediaLinks();
+        }
+
+        function updateSocialMediaLinks() {
+            const contentData = getWebsiteContent();
+            
+            // Update WhatsApp link
+            const whatsappLink = document.querySelector('.social-link.whatsapp');
+            if (whatsappLink && contentData.whatsappLink) {
+                whatsappLink.href = contentData.whatsappLink;
+            }
+            
+            // Update TikTok link
+            const tiktokLink = document.querySelector('.social-link.tiktok');
+            if (tiktokLink && contentData.tiktokLink) {
+                tiktokLink.href = contentData.tiktokLink;
+            }
+            
+            // Update Facebook link
+            const facebookLink = document.querySelector('.social-link.facebook');
+            if (facebookLink && contentData.facebookLink) {
+                facebookLink.href = contentData.facebookLink;
+            }
+        }
+
+        function handleSavePaymentPlatform(e) {
+            e.preventDefault();
+            const formData = new FormData(e.target);
+            
+            // Get selected payment methods
+            const selectedMethods = [];
+            const checkboxes = document.querySelectorAll('input[name="paymentMethods"]:checked');
+            checkboxes.forEach(checkbox => {
+                selectedMethods.push(checkbox.value);
+            });
+            
+            const paymentData = {
+                paymentMethods: selectedMethods.join(','),
+                primaryPaymentMethod: formData.get('primaryPayment'),
+                stripeLink: formData.get('stripeLink'),
+                paypalLink: formData.get('paypalLink'),
+                squareLink: formData.get('squareLink'),
+                cashappLink: formData.get('cashappLink'),
+                venmoLink: formData.get('venmoLink'),
+                bankInfo: formData.get('bankInfo'),
+                paymentInstructions: formData.get('instructions'),
+                currency: formData.get('currency')
+            };
+            
+            Object.entries(paymentData).forEach(([key, value]) => {
+                saveContentData(key, value);
+            });
+            
+            alert('Payment platform settings saved successfully!');
+        }
+
+        function saveContentData(key, value) {
+            const contentData = JSON.parse(localStorage.getItem('websiteContent') || '{}');
+            contentData[key] = value;
+            localStorage.setItem('websiteContent', JSON.stringify(contentData));
+        }
+
+        // Testing Functions
+        function showTestingOutput(message) {
+            const output = document.getElementById('testingOutput');
+            const results = document.getElementById('testingResults');
+            output.style.display = 'block';
+            results.textContent = message;
+            output.scrollIntoView({ behavior: 'smooth' });
+        }
+
+        function viewStoredData() {
+            let output = '=== STORED DATA ===\n\n';
+            
+            // Website Content
+            const websiteContent = localStorage.getItem('websiteContent');
+            output += 'Website Content:\n';
+            output += websiteContent ? JSON.stringify(JSON.parse(websiteContent), null, 2) : 'No data';
+            output += '\n\n';
+            
+            // Products
+            output += 'Products:\n';
+            output += JSON.stringify(products, null, 2);
+            output += '\n\n';
+            
+            // Categories
+            output += 'Categories:\n';
+            output += JSON.stringify(categories, null, 2);
+            output += '\n\n';
+            
+            // Cart
+            const cart = localStorage.getItem('cart');
+            output += 'Cart:\n';
+            output += cart ? JSON.stringify(JSON.parse(cart), null, 2) : 'No cart data';
+            output += '\n\n';
+            
+            // Orders
+            const orders = localStorage.getItem('orders');
+            output += 'Orders:\n';
+            output += orders ? JSON.stringify(JSON.parse(orders), null, 2) : 'No orders';
+            
+            showTestingOutput(output);
+        }
+
+        function exportData() {
+            const allData = {
+                websiteContent: localStorage.getItem('websiteContent'),
+                products: products,
+                categories: categories,
+                cart: localStorage.getItem('cart'),
+                orders: localStorage.getItem('orders'),
+                exportDate: new Date().toISOString()
+            };
+            
+            const dataStr = JSON.stringify(allData, null, 2);
+            const dataBlob = new Blob([dataStr], {type: 'application/json'});
+            
+            const link = document.createElement('a');
+            link.href = URL.createObjectURL(dataBlob);
+            link.download = `autoparts-data-${new Date().toISOString().split('T')[0]}.json`;
+            link.click();
+            
+            showTestingOutput('Data exported successfully! Check your downloads folder.');
+        }
+
+        function clearAllData() {
+            if (confirm('Are you sure you want to clear ALL data? This action cannot be undone!')) {
+                localStorage.clear();
+                showTestingOutput('All data cleared successfully!');
+                setTimeout(() => {
+                    location.reload();
+                }, 2000);
+            }
+        }
+
+        function testProducts() {
+            let output = '=== PRODUCT TEST RESULTS ===\n\n';
+            
+            output += `Total Products: ${products.length}\n`;
+            output += `Categories Used: ${[...new Set(products.map(p => p.category))].join(', ')}\n\n`;
+            
+            output += 'Product Details:\n';
+            products.forEach((product, index) => {
+                output += `${index + 1}. ${product.title}\n`;
+                output += `   Category: ${product.category}\n`;
+                output += `   Price: $${product.price}\n`;
+                output += `   Stock: ${product.inStock ? 'In Stock' : 'Out of Stock'}\n`;
+                output += `   Options: ${product.options ? product.options.length : 0}\n\n`;
+            });
+            
+            showTestingOutput(output);
+        }
+
+        function testCategories() {
+            let output = '=== CATEGORY TEST RESULTS ===\n\n';
+            
+            output += `Total Categories: ${Object.keys(categories).length}\n\n`;
+            
+            output += 'Category Details:\n';
+            Object.entries(categories).forEach(([key, name]) => {
+                const productCount = products.filter(p => p.category === key).length;
+                output += `${name} (${key}): ${productCount} products\n`;
+            });
+            
+            showTestingOutput(output);
+        }
+
+        function testPaymentSettings() {
+            const settings = getPaymentSettings();
+            let output = '=== PAYMENT SETTINGS TEST ===\n\n';
+            
+            output += `Available Methods: ${settings.paymentMethods.join(', ') || 'None'}\n`;
+            output += `Primary Method: ${settings.primaryPaymentMethod || 'Not set'}\n`;
+            output += `Currency: ${settings.currency}\n\n`;
+            
+            output += 'Platform Links:\n';
+            output += `Stripe: ${settings.stripeLink || 'Not set'}\n`;
+            output += `PayPal: ${settings.paypalLink || 'Not set'}\n`;
+            output += `Square: ${settings.squareLink || 'Not set'}\n`;
+            output += `Cash App: ${settings.cashappLink || 'Not set'}\n`;
+            output += `Venmo: ${settings.venmoLink || 'Not set'}\n`;
+            output += `Bank Info: ${settings.bankInfo || 'Not set'}\n\n`;
+            
+            output += `Instructions: ${settings.paymentInstructions || 'Not set'}\n`;
+            
+            showTestingOutput(output);
+        }
+
+        function simulateMobile() {
+            document.body.style.width = '375px';
+            document.body.style.margin = '0 auto';
+            document.body.style.border = '2px solid #1e3c72';
+            showTestingOutput('Mobile view (375px) activated. Refresh to reset.');
+        }
+
+        function simulateTablet() {
+            document.body.style.width = '768px';
+            document.body.style.margin = '0 auto';
+            document.body.style.border = '2px solid #1e3c72';
+            showTestingOutput('Tablet view (768px) activated. Refresh to reset.');
+        }
+
+        function resetView() {
+            document.body.style.width = '';
+            document.body.style.margin = '';
+            document.body.style.border = '';
+            showTestingOutput('Desktop view restored.');
+        }
+
+        function testTheme(color) {
+            const root = document.documentElement;
+            let primaryColor, secondaryColor;
+            
+            switch(color) {
+                case 'green':
+                    primaryColor = '#28a745';
+                    secondaryColor = '#20c997';
+                    break;
+                case 'red':
+                    primaryColor = '#dc3545';
+                    secondaryColor = '#fd7e14';
+                    break;
+                default: // blue
+                    primaryColor = '#1e3c72';
+                    secondaryColor = '#2a5298';
+            }
+            
+            // Update CSS variables
+            root.style.setProperty('--primary-color', primaryColor);
+            root.style.setProperty('--secondary-color', secondaryColor);
+            
+            // Update header background
+            const header = document.querySelector('.header');
+            if (header) {
+                header.style.background = `linear-gradient(135deg, ${primaryColor} 0%, ${secondaryColor} 100%)`;
+            }
+            
+            showTestingOutput(`${color.charAt(0).toUpperCase() + color.slice(1)} theme applied!`);
+        }
+
+        function resetTheme() {
+            const root = document.documentElement;
+            root.style.removeProperty('--primary-color');
+            root.style.removeProperty('--secondary-color');
+            
+            const header = document.querySelector('.header');
+            if (header) {
+                header.style.background = '';
+            }
+            
+            showTestingOutput('Original theme restored.');
+        }
+
+        function showConsoleInfo() {
+            let output = '=== CONSOLE INFORMATION ===\n\n';
+            
+            output += `User Agent: ${navigator.userAgent}\n`;
+            output += `Browser: ${navigator.appName}\n`;
+            output += `Platform: ${navigator.platform}\n`;
+            output += `Language: ${navigator.language}\n`;
+            output += `Screen: ${screen.width}x${screen.height}\n`;
+            output += `Window: ${window.innerWidth}x${window.innerHeight}\n`;
+            output += `Viewport: ${document.documentElement.clientWidth}x${document.documentElement.clientHeight}\n`;
+            output += `Online: ${navigator.onLine}\n`;
+            output += `Cookies Enabled: ${navigator.cookieEnabled}\n`;
+            output += `Local Storage: ${typeof(Storage) !== "undefined" ? "Supported" : "Not Supported"}\n`;
+            
+            showTestingOutput(output);
+        }
+
+        function testLocalStorage() {
+            let output = '=== LOCAL STORAGE TEST ===\n\n';
+            
+            try {
+                const testKey = 'test_' + Date.now();
+                const testValue = 'Test data';
+                
+                localStorage.setItem(testKey, testValue);
+                const retrieved = localStorage.getItem(testKey);
+                
+                if (retrieved === testValue) {
+                    output += '✓ Local Storage: Working correctly\n';
+                } else {
+                    output += '✗ Local Storage: Failed to store/retrieve data\n';
+                }
+                
+                localStorage.removeItem(testKey);
+                
+                // Test storage limits
+                let dataSize = 0;
+                for (let key in localStorage) {
+                    if (localStorage.hasOwnProperty(key)) {
+                        dataSize += localStorage[key].length + key.length;
+                    }
+                }
+                
+                output += `Current Storage Usage: ${(dataSize / 1024).toFixed(2)} KB\n`;
+                output += `Storage Limit: ~5-10 MB (varies by browser)\n`;
+                
+            } catch (e) {
+                output += `✗ Local Storage Error: ${e.message}\n`;
+            }
+            
+            showTestingOutput(output);
+        }
+
+        function generateTestData() {
+            const testProducts = [
+                {
+                    id: products.length + 1,
+                    title: "Test Product " + (products.length + 1),
+                    description: "This is a test product generated for testing purposes.",
+                    price: Math.floor(Math.random() * 500) + 50,
+                    category: Object.keys(categories)[Math.floor(Math.random() * Object.keys(categories).length)],
+                    inStock: Math.random() > 0.3,
+                    image: "test.jpg",
+                    options: [
+                        { name: "Size", values: ["Small", "Medium", "Large"] },
+                        { name: "Color", values: ["Red", "Blue", "Green"] }
+                    ]
+                }
+            ];
+            
+            products.push(...testProducts);
+            loadProductsTable();
+            
+            showTestingOutput(`Generated ${testProducts.length} test product(s)!\n\nTest Product Details:\n${JSON.stringify(testProducts, null, 2)}`);
+        }
+
+        function editProduct(productId) {
+            const product = products.find(p => p.id === productId);
+            if (product) {
+                alert('Edit functionality would be implemented here. Product: ' + product.title);
+            }
+        }
+
+        function deleteProduct(productId) {
+            if (confirm('Are you sure you want to delete this product?')) {
+                const deletedProduct = deleteProduct(productId);
+                if (deletedProduct) {
+                    loadProductsTable();
+                    alert('Product deleted successfully!');
+                }
+            }
+        }
+    </script>
+</body>
+</html>
