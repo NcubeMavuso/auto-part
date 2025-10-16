@@ -160,5 +160,34 @@
     </footer>
 
     <script src="script.js"></script>
+    <script>
+document.addEventListener('DOMContentLoaded', () => {
+  const contentData = JSON.parse(localStorage.getItem('websiteContent') || '{}');
+
+  // Example: Update About section
+  const aboutSection = document.querySelector('#about');
+  if (aboutSection && contentData.aboutUs) {
+    aboutSection.innerText = contentData.aboutUs;
+  }
+
+  // Example: Update contact info
+  const contactPhone = document.querySelector('.contact-phone');
+  if (contactPhone && contentData.contactPhone) {
+    contactPhone.innerText = contentData.contactPhone;
+  }
+
+  const contactEmail = document.querySelector('.contact-email');
+  if (contactEmail && contentData.contactEmail) {
+    contactEmail.innerText = contentData.contactEmail;
+  }
+
+  // Example: Update social links
+  if (contentData.whatsappLink) {
+    const wa = document.querySelector('.social-link.whatsapp');
+    if (wa) wa.href = contentData.whatsappLink;
+  }
+});
+</script>
+
 </body>
 </html>
