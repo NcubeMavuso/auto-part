@@ -1361,12 +1361,55 @@ else {
 
         function deleteCategory(key) {
             if (confirm(`Are you sure you want to delete the category "${categories[key]}"?`)) {
-                delete categories[key];
-                loadCategories();
-                updateCategorySelect();
-                alert('Category deleted successfully!');
-            }
-        }
+               // --- Save categories to localStorage ---
+function saveCategories() {
+    localStorage.setItem('categories', JSON.stringify(categories));
+}
+
+// --- Load categories from localStorage on startup ---
+function loadSavedCategories() {
+    const saved = localStorage.getItem('categories');
+    if (saved) {
+        Object.assign(categories, JSON.parse(saved));
+    }
+}
+
+// --- Update each function to persist data ---
+function handleAddCategory(e) {
+    e.preventDefault();
+    const formData = new FormData(e.target);
+    const key = formData.get('key').toLowerCase().replace(/\s+/g, '');
+    const name = formData.get('name');
+    if (categories[key]) return alert('Category already exists!');
+    categories[key] = name;
+    saveCategories();
+    updateCategorySelect();
+    loadCategories();
+    e.target.reset();
+    alert('Category added successfully!');
+}
+
+function editCategory(key, name) {
+    const newName = prompt('Edit category name:', name);
+    if (newName && newName.trim()) {
+        categories[key] = newName.trim();
+        saveCategories();
+        loadCategories();
+        updateCategorySelect();
+        alert('Category updated successfully!');
+    }
+}
+
+function deleteCategory(key) {
+    if (confirm(`Delete category "${categories[key]}"?`)) {
+        delete categories[key];
+        saveCategories();
+        loadCategories();
+        updateCategorySelect();
+        alert('Category deleted successfully!');
+    }
+}
+
 
         function handleSaveAboutUs(e) {
             e.preventDefault();
